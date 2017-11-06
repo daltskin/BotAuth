@@ -77,10 +77,7 @@ namespace BotAuth.Dialogs
                         else
                         {
                             // handle at mentions in Teams
-                            var text = msg.Text;
-                            if (text.Contains("</at>"))
-                                text = text.Substring(text.IndexOf("</at>") + 5).Trim();
-
+                            var text = msg.RemoveRecipientMention().Trim();
                             if (text.Length >= 6 && magicNumber.ToString() == text.Substring(0, 6))
                             {
                                 context.UserData.SetValue<string>($"{this.authProvider.Name}{ContextConstants.MagicNumberValidated}", "true");
